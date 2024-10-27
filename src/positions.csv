@@ -2,7 +2,6 @@ Country,Capital City,Latitude,Longitude,Population,Capital Type
 Afghanistan,Kabul,34.5289,69.1725,4011770,Capital
 Albania,Tiranë (Tirana),41.3275,19.8189,475577,Capital
 Algeria,El Djazaïr  (Algiers),36.7525,3.0420,2693542,Capital
-American Samoa,Pago Pago,-14.2781,-170.7025,48526,Capital
 Andorra,Andorra la Vella,42.5078,1.5211,22614,Capital
 Angola,Luanda,-8.8368,13.2343,7774200,Capital
 Antigua and Barbuda,St. John's,17.1172,-61.8457,20764,Capital
@@ -21,7 +20,7 @@ Belize,Belmopan,17.2500,-88.7667,22964,Capital
 Benin,Cotonou,6.3654,2.4183,685458,Economic Capital
 Bermuda,Hamilton,32.2915,-64.7780,10073,Capital
 Bhutan,Thimphu,27.4661,89.6419,203297,Capital
-Bolivia (Plurinational State of),La Paz,-16.5000,-68.1500,1814087,Seat of Government
+Bolivia,La Paz,-16.5000,-68.1500,1814087,Seat of Government
 Bosnia and Herzegovina,Sarajevo,43.8486,18.3564,342577,Capital
 Botswana,Gaborone,-24.6545,25.9086,269338,Capital
 Brazil,Brasília,-15.7797,-47.9297,4469585,Capital
@@ -81,7 +80,7 @@ Hungary,Budapest,47.4980,19.0399,1759497,Capital
 Iceland,Reykjavík,64.1355,-21.8954,216364,Capital
 India,Delhi,28.6667,77.2167,28513682,Capital
 Indonesia,Jakarta,-6.2118,106.8416,10516927,Capital
-Iran (Islamic Republic of),Tehran,35.6944,51.4215,8895947,Capital
+Iran,Tehran,35.6944,51.4215,8895947,Capital
 Iraq,Baghdad,33.3406,44.4009,6811955,Capital
 Ireland,Dublin,53.3331,-6.2489,1201426,Capital
 Israel,Jerusalem,31.7690,35.2163,907062,Capital

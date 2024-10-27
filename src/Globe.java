@@ -45,16 +45,21 @@ public class Globe {
         for (Country k : this.countries) {
             double error = 1;
             double lastDistance = -1;
+            Country lastCountry = null;
             boolean viable = true;
             for (int i = 0; i < countries.size(); i++) {
                 Country c = countries.get(i);
                 if (c.equals(k)) viable = false;
                 double d = distances.get(i);
                 if (d >= 0) {
+                    //d = Math.max(d, 100);
                     error *= Math.abs(getGreatCircleDistance(k, c) - d);
                     lastDistance = d;
+                    lastCountry = c;
+                } else if (lastDistance > -1) {
+                    error *= Math.max(getGreatCircleDistance(lastCountry, k) - getGreatCircleDistance(k, c), 1);
+                    //System.out.println(lastCountry.getName());
                 }
-                else if (lastDistance > 1 && getGreatCircleDistance(k, c) < lastDistance) error *= 100000;
 
             }
             if (error < errorIndex || errorIndex < 0) {
