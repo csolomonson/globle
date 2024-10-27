@@ -10,6 +10,13 @@ public class Globe {
         this.countries = countries;
     }
 
+    /**
+     * Find the country in this object's ArrayList that is the closest to the given distance away from a certain point
+     * @param lat latitude of the center point
+     * @param lon longitude of the center point
+     * @param distance distance in kilometers away, using great circle distance
+     * @return Country object that is the closest to the given distance away from the given point
+     */
     public Country getCountryClosestToDistance(double lat, double lon, double distance) {
         if (countries.isEmpty()) return null;
         Country closestCountry = null;
@@ -23,6 +30,15 @@ public class Globe {
         }
         return closestCountry;
     }
+
+    public Country getCountryClosestToDistance(Country center, double distance) {
+        return getCountryClosestToDistance(center.getLatitude(), center.getLongitude(), distance);
+    }
+
+    public Country getClosestCountry(double lat, double lon) {
+        return getCountryClosestToDistance(lat, lon, 0);
+    }
+
 
     /**
      * Get the distance in kilometers between two points on earth, traveling around the globe on a great circle of the earth
