@@ -1,50 +1,49 @@
 /**
- * Model class to store the name, latitude, and longitude of a country
+ * Record class to store the name, latitude, and longitude of a country
  */
-public class Country {
-    private final double latitude;
-    private final double longitude;
-    private final String name;
-
+public record Country(double latitude, double longitude, String name) {
     /**
-     * @param latitude latitude in degrees of capital city
+     * @param latitude  latitude in degrees of capital city
      * @param longitude longitude in degrees of capital city
-     * @param name name of country
+     * @param name      name of country
      */
-    public Country(double latitude, double longitude, String name) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.name = name;
+    public Country {
     }
 
     /**
      * Get the latitude of the capital city
+     *
      * @return latitude in degrees of capital city
      */
-    public double getLatitude() {
+    @Override
+    public double latitude() {
         return latitude;
     }
 
     /**
      * Get tge longitude of the capital city
+     *
      * @return longitude in degrees of capital city
      */
-    public double getLongitude() {
+    @Override
+    public double longitude() {
         return longitude;
     }
 
     /**
      * Get the name of the country
+     *
      * @return name of country
      */
-    public String getName() {
+    @Override
+    public String name() {
         return name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Country c)) return false;
-        return c.getName().equals(name) && c.getLatitude() == latitude && c.getLongitude() == longitude;
+        return c.name().equals(name) && c.latitude() == latitude && c.longitude() == longitude;
     }
 
 

@@ -1,11 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * A class to contain a list of countries, and do distance calculations and triangulations between them
+ */
 public class Globe {
     private static final double EARTH_RADIUS = 6371; //kilometers
     private static final double MAX_DISTANCE = 2*Math.PI*EARTH_RADIUS;
 
     private final ArrayList<Country> countries;
 
+    /**
+     * Instantiate a Globe with specific countries to search through
+     * @param countries All the country names and coordinates to search through and triangulate
+     */
     public Globe(ArrayList<Country> countries) {
         this.countries = countries;
     }
@@ -22,7 +29,7 @@ public class Globe {
         Country closestCountry = null;
         double nearestDistance = MAX_DISTANCE + distance;
         for (Country c : countries) {
-            double d = Math.abs(getGreatCircleDistance(lat, lon, c.getLatitude(), c.getLongitude()) - distance);
+            double d = Math.abs(getGreatCircleDistance(lat, lon, c.latitude(), c.longitude()) - distance);
             if (d < nearestDistance) {
                 nearestDistance = d;
                 closestCountry = c;
@@ -31,14 +38,22 @@ public class Globe {
         return closestCountry;
     }
 
-    public Country getCountryClosestToDistance(Country center, double distance) {
-        return getCountryClosestToDistance(center.getLatitude(), center.getLongitude(), distance);
-    }
-
+    /**
+     * Find the country that minimizes great circle distance to a given point
+     * @param lat Latitude in degrees
+     * @param lon Longitude in degrees
+     * @return Country object that is the closest to the given coordinates
+     */
     public Country getClosestCountry(double lat, double lon) {
         return getCountryClosestToDistance(lat, lon, 0);
     }
 
+    /**
+     * Get the best next candidate for a country from this object's countries list
+     * @param countries List of countries guessed in order
+     * @param distances List of reported globle distances corresponding to each of the countries passed. Pass a negative number if the distance is "cooler" than a previously guessed distance.
+     * @return The country that minimizes a calculated error index (note that it will never return a country that has already been guessed)
+     */
     public Country triangulate(ArrayList<Country> countries, ArrayList<Double> distances) {
         Country currentAns = null;
         double errorIndex = -1;
@@ -62,7 +77,6 @@ public class Globe {
                     error *= Math.max(getGreatCircleDistance(lastCountry, k) - getGreatCircleDistance(k, c), 1);
                     //System.out.println(lastCountry.getName());
                 }
-
             }
             if (error < errorIndex || errorIndex < 0) {
                 if (viable) {
@@ -73,7 +87,6 @@ public class Globe {
         }
         return currentAns;
     }
-
 
     /**
      * Get the distance in kilometers between two points on earth, traveling around the globe on a great circle of the earth
@@ -101,15 +114,25 @@ public class Globe {
         return c*EARTH_RADIUS;
     }
 
+    /**
+     * Distance between the coordinates that two Country objects contain, traveling on a great circle along the earth.
+     * @param c1 Country 1
+     * @param c2 Country 2
+     * @return Distance between Country 1 and 2 in kilometers
+     */
     public static double getGreatCircleDistance(Country c1, Country c2) {
-        return getGreatCircleDistance(c1.getLatitude(), c1.getLongitude(), c2.getLatitude(), c2.getLongitude());
+        return getGreatCircleDistance(c1.latitude(), c1.longitude(), c2.latitude(), c2.longitude());
     }
 
+    /**
+     * Get a country object with a given name
+     * @param name name of the country (must match the Country's name field, case-insensitive)
+     * @return Country object if contained in this Globe, or else null
+     */
     Country getCountry(String name) {
         for (Country c : countries) {
-            if (c.getName().toLowerCase().equals(name.toLowerCase())) return c;
+            if (c.name().equalsIgnoreCase(name)) return c;
         }
         return null;
     }
-
 }

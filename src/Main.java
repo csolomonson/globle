@@ -17,9 +17,10 @@ public class Main {
         Scanner input = new Scanner(System.in);
         ArrayList<Country> countriesGuessed = new ArrayList<>();
         ArrayList<Double> distances = new ArrayList<>();
-        while (true) {
+        String countryName = "";
+        while (!countryName.equals("done")) {
             System.out.println("Enter the country you guessed: ");
-            String countryName = input.nextLine();
+            countryName = input.nextLine();
             Country c = globe.getCountry(countryName);
             if (c != null) {
                 System.out.println("Enter distance in km: ");
@@ -28,7 +29,7 @@ public class Main {
                 distances.add(distance);
                 Country ans = globe.triangulate(countriesGuessed, distances);
                 double actualDist = Globe.getGreatCircleDistance(c, ans);
-                System.out.printf("Country: %s, distance: %f%n", ans.getName(), actualDist);
+                System.out.printf("Country: %s, distance: %f%n", ans.name(), actualDist);
             }
         }
 

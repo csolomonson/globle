@@ -26,12 +26,12 @@ class GlobeTest {
 
     @Test
     void getCountryClosestToDistance() {
-        assertEquals("Andorra", globe.getCountryClosestToDistance(31.415, 21.724, 2169).getName());
+        assertEquals("Andorra", globe.getCountryClosestToDistance(31.415, 21.724, 2169).name());
     }
 
     @Test
     void getClosestCountry() {
-        assertEquals("Andorra", globe.getClosestCountry(42.5, 1.52).getName());
+        assertEquals("Andorra", globe.getClosestCountry(42.5, 1.52).name());
     }
 
     @Test
