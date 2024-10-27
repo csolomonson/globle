@@ -3,14 +3,26 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class to handle parsing a csv of country names and locations
+ */
 public class CsvParser {
     Scanner fileScanner;
     ArrayList<Country> countries;
 
+    /**
+     * Start a scanner on the filename of the csv to read
+     * @param filename File path of the csv to read
+     * @throws FileNotFoundException Thrown if the specified file does not exist
+     */
     public CsvParser(String filename) throws FileNotFoundException {
         fileScanner = new Scanner(new File(filename));
+        countries = new ArrayList<>();
     }
 
+    /**
+     * Goes through the specified file and adds to the countries ArrayList
+     */
     public void scanFile() {
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
@@ -23,6 +35,11 @@ public class CsvParser {
         }
     }
 
+    /**
+     * An ArrayList of all the Country objects represented in the given csv file
+     * Only works after scanFile() is run.
+     * @return ArrayList of all the Country's in the csv
+     */
     public ArrayList<Country> getCountries() {
         return countries;
     }
