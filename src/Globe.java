@@ -4,7 +4,7 @@ public class Globe {
     private static final double EARTH_RADIUS = 6371; //kilometers
     private static final double MAX_DISTANCE = 2*Math.PI*EARTH_RADIUS;
 
-    private ArrayList<Country> countries;
+    private final ArrayList<Country> countries;
 
     public Globe(ArrayList<Country> countries) {
         this.countries = countries;
@@ -39,6 +39,36 @@ public class Globe {
         return getCountryClosestToDistance(lat, lon, 0);
     }
 
+    public Country triangulate(ArrayList<Country> countries, ArrayList<Double> distances) {
+        Country currentAns = null;
+        double errorIndex = -1;
+        for (Country k : this.countries) {
+            double error = 1;
+            double lastDistance = -1;
+            boolean viable = true;
+            for (int i = 0; i < countries.size(); i++) {
+                Country c = countries.get(i);
+                if (c.equals(k)) viable = false;
+                double d = distances.get(i);
+                if (d >= 0) {
+                    error *= Math.abs(getGreatCircleDistance(k, c) - d);
+                    lastDistance = d;
+                }
+                else if (lastDistance > 1 && getGreatCircleDistance(k, c) < lastDistance) error *= 100000;
+
+            }
+            if (error < errorIndex || errorIndex < 0) {
+                if (viable) {
+                    errorIndex = error;
+                    currentAns = k;
+                }
+            }
+        }
+
+        return currentAns;
+
+    }
+
 
     /**
      * Get the distance in kilometers between two points on earth, traveling around the globe on a great circle of the earth
@@ -64,6 +94,17 @@ public class Globe {
         double a = sinLat*sinLat + Math.cos(lat1) * Math.cos(lat2) * sinLon*sinLon;
         double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         return c*EARTH_RADIUS;
+    }
+
+    public static double getGreatCircleDistance(Country c1, Country c2) {
+        return getGreatCircleDistance(c1.getLatitude(), c1.getLongitude(), c2.getLatitude(), c2.getLongitude());
+    }
+
+    Country getCountry(String name) {
+        for (Country c : countries) {
+            if (c.getName().toLowerCase().equals(name.toLowerCase())) return c;
+        }
+        return null;
     }
 
 }
