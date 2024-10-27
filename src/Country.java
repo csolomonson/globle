@@ -40,4 +40,12 @@ public class Country {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Country c)) return false;
+        return c.getName().equals(name) && c.getLatitude() == latitude && c.getLongitude() == longitude;
+    }
+
+
 }
