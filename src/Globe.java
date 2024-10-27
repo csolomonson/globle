@@ -57,10 +57,18 @@ public class Globe {
     public Country triangulate(ArrayList<Country> countries, ArrayList<Double> distances) {
         Country currentAns = null;
         double errorIndex = -1;
+
+        //find the closest country so far and make sure we don't pick countries closer to other countries than that country
+        double bestDistance = -1;
+        Country bestCountry = null;
+        for (int i = 0; i < countries.size(); i++) {
+            if (distances.get(i) >= 0 && (distances.get(i) < bestDistance || bestDistance == -1)) {
+                bestCountry = countries.get(i);
+                bestDistance = distances.get(i);
+            }
+        }
         for (Country k : this.countries) {
             double error = 1;
-            double lastDistance = -1;
-            Country lastCountry = null;
             boolean viable = true;
             for (int i = 0; i < countries.size(); i++) {
                 Country c = countries.get(i);
@@ -71,11 +79,12 @@ public class Globe {
                     error *= Math.abs(getGreatCircleDistance(k, c) - d);
                     //capital distance is always larger than reported globle distance
                     if (getGreatCircleDistance(k,c) < d) error *= 100000;
-                    lastDistance = d;
-                    lastCountry = c;
-                } else if (lastDistance > -1) {
-                    error *= Math.max(getGreatCircleDistance(lastCountry, k) - getGreatCircleDistance(k, c), 1);
-                    //System.out.println(lastCountry.getName());
+                    bestDistance = d;
+                    bestCountry = c;
+                }
+                if (bestDistance > -1) {
+                    error *= Math.max(getGreatCircleDistance(bestCountry, k) - getGreatCircleDistance(k, c), 1);
+                    //System.out.println(bestCountry.getName());
                 }
             }
             if (error < errorIndex || errorIndex < 0) {
