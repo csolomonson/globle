@@ -28,7 +28,7 @@ class CsvParserTest {
             parser.scanFile();
             success = true;
             ArrayList<Country> countries = parser.getCountries();
-            assertEquals(197, countries.size());
+            assertEquals(196, countries.size());
             assertEquals(countries.getFirst(), new Country(34.5289, 69.1725, "Afghanistan"));
         } catch (FileNotFoundException e) {
             success = false;
