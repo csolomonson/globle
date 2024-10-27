@@ -10,12 +10,12 @@ public class Globe {
         this.countries = countries;
     }
 
-    public Country getClosestCountry(double lat, double lon) {
+    public Country getCountryClosestToDistance(double lat, double lon, double distance) {
         if (countries.isEmpty()) return null;
         Country closestCountry = null;
-        double nearestDistance = MAX_DISTANCE;
+        double nearestDistance = MAX_DISTANCE + distance;
         for (Country c : countries) {
-            double d = getGreatCircleDistance(lat, lon, c.getLatitude(), c.getLongitude());
+            double d = Math.abs(getGreatCircleDistance(lat, lon, c.getLatitude(), c.getLongitude()) - distance);
             if (d < nearestDistance) {
                 nearestDistance = d;
                 closestCountry = c;
