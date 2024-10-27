@@ -54,6 +54,8 @@ public class Globe {
                 if (d >= 0) {
                     //d = Math.max(d, 100);
                     error *= Math.abs(getGreatCircleDistance(k, c) - d);
+                    //capital distance is always larger than reported globle distance
+                    if (getGreatCircleDistance(k,c) < d) error *= 100000;
                     lastDistance = d;
                     lastCountry = c;
                 } else if (lastDistance > -1) {
@@ -69,9 +71,7 @@ public class Globe {
                 }
             }
         }
-
         return currentAns;
-
     }
 
 
