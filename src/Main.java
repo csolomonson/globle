@@ -25,11 +25,16 @@ public class Main {
             if (c != null) {
                 System.out.println("Enter distance in km: ");
                 double distance = input.nextDouble();
+                input.nextLine();
                 countriesGuessed.add(c);
                 distances.add(distance);
                 Country ans = globe.triangulate(countriesGuessed, distances);
                 double actualDist = Globe.getGreatCircleDistance(c, ans);
                 System.out.printf("Country: %s, distance: %f%n", ans.name(), actualDist);
+            } else if (countryName.equals("restart")) {
+                System.out.println("Restarting.");
+                countriesGuessed.clear();
+                distances.clear();
             }
         }
 
