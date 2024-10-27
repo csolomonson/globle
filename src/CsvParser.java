@@ -24,8 +24,9 @@ public class CsvParser {
      * Goes through the specified file and adds to the countries ArrayList
      */
     public void scanFile() {
+        String line = fileScanner.nextLine(); //skip header
         while (fileScanner.hasNextLine()) {
-            String line = fileScanner.nextLine();
+            line = fileScanner.nextLine();
             String[] tokens = line.split(",");
             String name = tokens[0];
             double lat = Double.parseDouble(tokens[2]);
